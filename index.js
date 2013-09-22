@@ -1,9 +1,10 @@
-var _ = require('underscore');
+var _ = require('underscore'),
+    sha1 = require('sha1');
 
 exports.token = {
     join: function(obj) {
         var list = [];
-        _.obj(function(value,key){
+        _.each(obj, function(value,key){
             list.push(encodeURIComponent(key + '=' + value));
         });
         return list.sort().join('&');
@@ -40,13 +41,13 @@ exports.timestamp = function() {
 exports.signature = function(req, params) {
     if (req) {
         var baseURI = exports.token.join(params);
-        return [
+        return sha1([
             encodeURIComponent(req.method.toUpperCase()),
             '&',
             req.url.toLowerCase(),
             '&',
             baseURI
-        ].join('');
+        ].join(''));
     } else {
         return null;
     }
@@ -54,12 +55,13 @@ exports.signature = function(req, params) {
 
 exports.oauth1 = function(req, params, method) {
     if (req) {
-        var p = params && typeof(params) === 'object' ? params : {};
+        var p = (params && _.isObject(params)) ? params : {};
         p.oauth_nonce = exports.nonce(15);
         p.oauth_signature_method = method ? method : 'HMAC-SHA1';
         p.oauth_timestamp = exports.timestamp();
         p.oauth_version = '1.0';
-        return exports.signature(req, p);
+        p.oauth_signature = exports.signature(req, p);
+        return p;
     } else {
         return null;
     }

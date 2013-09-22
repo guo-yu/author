@@ -23,6 +23,7 @@
     "url": "https://github.com/turingou/author/issues"
   },
   "dependencies": {
-    "underscore": "*"
+    "underscore": "*",
+    "sha1": "*"
   }
 }
