@@ -1,35 +1,34 @@
-## author ![npm](https://badge.fury.io/js/author.png)
+## Author ![npm](https://badge.fury.io/js/author.png)
 
-a simple token and signature creator for OAuth by [turing](https://npmjs.org/~turing) 
+A simple token and signature creator for OAuth by [turing](https://npmjs.org/~turing)
 
 ### Installation
 ````
-$ npm install author
+$ npm install --save author
 ````
 
 ### Example
 ````javascript
-var author = require('author');
+import Author from 'author'
 
-var oauthParams = author.oauth1({
-    method: 'get',
-    url: 'http://abc.com'
+var oauthParams = Author.oauth1({
+  method: 'get',
+  url: 'http://abc.com'
 },{
-    oauth_callback: '123',
-    oauth_consumer_key: '123333',
+  oauth_callback: '123',
+  oauth_consumer_key: '123333',
 });
 ````
 result will be something like:
 ````
-console.log(oauthParams);
-{ 
-    oauth_callback: '123',
-    oauth_consumer_key: '123333',
-    oauth_nonce: 137982814214500,
-    oauth_signature_method: 'HMAC-SHA1',
-    oauth_timestamp: 1379828142145,
-    oauth_version: '1.0',
-    oauth_signature: 'a2498dcdce3336e471cb039798bf0376924351f5'
+{
+  oauth_callback: '123',
+  oauth_consumer_key: '123333',
+  oauth_nonce: 137982814214500,
+  oauth_signature_method: 'HMAC-SHA1',
+  oauth_timestamp: 1379828142145,
+  oauth_version: '1.0',
+  oauth_signature: 'a2498dcdce3336e471cb039798bf0376924351f5'
 }
 ````
 

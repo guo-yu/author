@@ -1,4 +1,4 @@
-var author = require('../index');
+var author = require('../dist/author')
 
 var oauthParams = author.oauth1({
   method: 'get',
@@ -8,4 +8,4 @@ var oauthParams = author.oauth1({
   oauth_consumer_key: '123333',
 });
 
-console.log(oauthParams);
+console.log(oauthParams)
